@@ -1,0 +1,36 @@
+name: Security check
+on:
+  push:
+    branches: 
+      - dev
+      - master
+    paths:
+      - "**.c"
+      - "**.h"
+      - "**.cpp"
+      - "**.hpp"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  security_scan:
+    name: Code security scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Codacy analyze
+        uses: codacy/codacy-analysis-cli-action@master
+        with:
+          output: results.sarif
+          format: sarif
+          gh-code-scanning-compat: true
+          max-allowed-issues: 2147483647
+      
+      - name: Upload scan results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif

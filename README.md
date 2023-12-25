@@ -18,3 +18,5 @@ The correct way to develop a project based on this template is to make all your 
 - `Build CMake project (build)` - builds the project and stores it as an artifact
 - `Create version (version)` - creates new version tags on each commit. See https://github.com/codacy/git-version#versioning-model
 - `Create release (release)` - creates new release when pushed into `master` branch
+### .github/workflows/security.yml (Security check)
+- `Code security scan (security_scan)` - runs static analysis with GitHub code scanning integration
